@@ -92,7 +92,7 @@ Scrapes Bing search results for "pikachu". Uses JS rendering and premium proxies
 
 ### Task 2 — Amazon
 
-Scrapes Amazon.de search results for "Nike" with intelligent duplicate detection. The scraper compares product ASINs across pages and stops automatically when Amazon starts returning duplicate results — Amazon.de now returns a maximum of ~8 unique pages for this search query. This avoids wasting API credits on duplicate content while still demonstrating correct pagination logic for up to 100 pages.
+Scrapes Amazon.de search results for "Nike" with intelligent duplicate detection. The scraper compares product ASINs across pages and stops automatically when Amazon starts returning duplicate results — Amazon.de now returns a maximum of ~8 unique pages for this search query. This avoids wasting API credits on duplicate content while still demonstrating correct pagination logic for up to 100 pages. Could be done as well, but all the pages will be the same
 
 ### Task 3 — Reddit
 
