@@ -61,3 +61,41 @@ class ScrapingBeeClient:
                 time.sleep(wait)
 
         raise RuntimeError(f"Failed to scrape {url} after {self.retries} attempts.")
+
+    def get_raw(self, url: str, params: dict = None) -> bytes:
+        """
+        Make a GET request via ScrapingBee API and return raw bytes.
+        Used for binary responses such as screenshots.
+
+        Args:
+            url: Target URL to scrape
+            params: Additional ScrapingBee parameters
+
+        Returns:
+            Response content as bytes
+        """
+        request_params = {
+            "api_key": self.api_key,
+            "url": url,
+            **(params or {})
+        }
+
+        for attempt in range(1, self.retries + 1):
+            try:
+                logger.info(f"Scraping (attempt {attempt}/{self.retries}): {url}")
+                response = requests.get(SCRAPINGBEE_BASE_URL, params=request_params)
+                response.raise_for_status()
+                logger.info(f"Success: {url}")
+                return response.content
+
+            except requests.exceptions.HTTPError as e:
+                logger.warning(f"HTTP error on attempt {attempt}: {e}")
+            except requests.exceptions.RequestException as e:
+                logger.warning(f"Request error on attempt {attempt}: {e}")
+
+            if attempt < self.retries:
+                wait = self.backoff_factor ** attempt
+                logger.info(f"Retrying in {wait:.1f}s...")
+                time.sleep(wait)
+
+        raise RuntimeError(f"Failed to scrape {url} after {self.retries} attempts.")
