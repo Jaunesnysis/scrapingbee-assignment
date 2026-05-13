@@ -37,7 +37,6 @@ def scrape_bing(client: ScrapingBeeClient) -> None:
         f.write(html_content)
     logger.info(f"HTML saved to {OUTPUT_HTML}")
 
-    # Save screenshot (returned as raw bytes)
 # Save screenshot (returned as raw bytes)
     screenshot_response = client.get_raw(BING_URL, params={
         "render_js": "true",
@@ -54,4 +53,8 @@ def scrape_bing(client: ScrapingBeeClient) -> None:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s"
+    )
     scrape_bing(ScrapingBeeClient())
