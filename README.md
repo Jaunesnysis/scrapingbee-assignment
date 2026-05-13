@@ -98,11 +98,14 @@ Scrapes Amazon.de search results for "Nike" with intelligent duplicate detection
 
 Scrapes a Reddit post including all comments. Uses JS rendering since Reddit is a React SPA that requires JavaScript execution to render content. Also saves a screenshot for visual verification.
 
-## Credits cost estimate
+## Testing
 
-| Task                                         | Pages | Credits each | Total   |
-| -------------------------------------------- | ----- | ------------ | ------- |
-| Bing (HTML + screenshot)                     | 2     | 5            | ~10     |
-| Amazon (unique pages only, no premium proxy) | ~8    | 1            | ~8      |
-| Reddit (HTML + screenshot)                   | 2     | 5            | ~10     |
-| **Total**                                    |       |              | **~28** |
+Unit tests are included for all modules. Tests use mocking so no API credits are consumed.
+
+Run the tests:
+
+```bash
+pytest tests/ -v
+```
+
+Expected output: 17 passed.
