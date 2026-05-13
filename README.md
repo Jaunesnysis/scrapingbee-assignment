@@ -48,7 +48,7 @@ cp .env.example .env
 ```
 
 Then open `.env` and replace `your_api_key_here` with your ScrapingBee API key.
-Get yours at: https://app.scrapingbee.com/account/usage
+Get yours at: https://www.scrapingbee.com
 
 ## Usage
 
