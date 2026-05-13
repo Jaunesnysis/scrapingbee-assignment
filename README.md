@@ -4,17 +4,19 @@ A web scraping project demonstrating the use of the ScrapingBee API to scrape co
 
 ## Project Structure
 
+```
 scrapingbee_assignment/
-├── .env.example # Environment variable template
+├── .env.example        # Environment variable template
 ├── .gitignore
 ├── README.md
-├── requirements.txt # Python dependencies
-├── main.py # Entry point — runs all 3 tasks
-├── scraper.py # Reusable ScrapingBee client
-├── task1_bing.py # Task 1: Bing search scraping
-├── task2_amazon.py # Task 2: Amazon pagination with duplicate detection
-├── task3_reddit.py # Task 3: Reddit JS rendering
-└── output/ # Generated files (gitignored)
+├── requirements.txt    # Python dependencies
+├── main.py             # Entry point — runs all 3 tasks
+├── scraper.py          # Reusable ScrapingBee client
+├── task1_bing.py       # Task 1: Bing search scraping
+├── task2_amazon.py     # Task 2: Amazon pagination with duplicate detection
+├── task3_reddit.py     # Task 3: Reddit JS rendering
+└── output/             # Generated files (gitignored)
+```
 
 ## Setup
 
