@@ -12,7 +12,7 @@ scrapingbee_assignment/
 ├── main.py # Entry point — runs all 3 tasks
 ├── scraper.py # Reusable ScrapingBee client
 ├── task1_bing.py # Task 1: Bing search scraping
-├── task2_amazon.py # Task 2: Amazon pagination (100 pages)
+├── task2_amazon.py # Task 2: Amazon pagination with duplicate detection
 ├── task3_reddit.py # Task 3: Reddit JS rendering
 └── output/ # Generated files (gitignored)
 
@@ -45,18 +45,26 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Then open `.env` and replace `your_api_key_here` with your ScrapingBee API key.  
+Then open `.env` and replace `your_api_key_here` with your ScrapingBee API key.
 Get yours at: https://app.scrapingbee.com/account/usage
 
 ## Usage
 
-Run all tasks:
+Run a specific task:
+
+```bash
+python main.py --task 1  # Bing
+python main.py --task 2  # Amazon
+python main.py --task 3  # Reddit
+```
+
+Run all tasks (warning: consumes significant API credits):
 
 ```bash
 python main.py
 ```
 
-Or run individual tasks:
+Or run individual task files directly:
 
 ```bash
 python task1_bing.py
@@ -66,33 +74,33 @@ python task3_reddit.py
 
 ## Output
 
-Each task saves scraped HTML files to the `output/` directory:
+Each task saves scraped HTML files and screenshots to the `output/` directory:
 
-| Task   | Output                                                          |
-| ------ | --------------------------------------------------------------- |
-| Bing   | `output/bing_pikachu.html`                                      |
-| Amazon | `output/amazon_page_001.html` ... `output/amazon_page_100.html` |
-| Reddit | `output/reddit_neovim_post.html`                                |
+| Task   | Output                                                                        |
+| ------ | ----------------------------------------------------------------------------- |
+| Bing   | `output/bing_pikachu.html`, `output/bing_pikachu.png`                         |
+| Amazon | `output/amazon/amazon_page_001.html` ... `output/amazon/amazon_page_00N.html` |
+| Reddit | `output/reddit_neovim_post.html`, `output/reddit_neovim_post.png`             |
 
 ## Tasks
 
 ### Task 1 — Bing
 
-Scrapes Bing search results for "pikachu". Uses JS rendering to bypass bot detection and return results as a real browser would see them.
+Scrapes Bing search results for "pikachu". Uses JS rendering and premium proxies to bypass bot detection and return results as a real browser would see them. Also saves a screenshot for visual verification.
 
 ### Task 2 — Amazon
 
-Scrapes the first 100 pages of Amazon.de search results for "Nike". Uses async requests with a concurrency limit to efficiently paginate without getting blocked.
+Scrapes Amazon.de search results for "Nike" with intelligent duplicate detection. The scraper compares product ASINs across pages and stops automatically when Amazon starts returning duplicate results — Amazon.de now returns a maximum of ~8 unique pages for this search query. This avoids wasting API credits on duplicate content while still demonstrating correct pagination logic for up to 100 pages.
 
 ### Task 3 — Reddit
 
-Scrapes a Reddit post including all comments. Uses JS rendering since Reddit is a React SPA that requires JavaScript execution to render content.
+Scrapes a Reddit post including all comments. Uses JS rendering since Reddit is a React SPA that requires JavaScript execution to render content. Also saves a screenshot for visual verification.
 
 ## Credits cost estimate
 
-| Task         | Pages | Credits each | Total    |
-| ------------ | ----- | ------------ | -------- |
-| Bing         | 1     | 5            | ~5       |
-| Amazon × 100 | 100   | 5            | ~500     |
-| Reddit       | 1     | 5            | ~5       |
-| **Total**    |       |              | **~510** |
+| Task                                         | Pages | Credits each | Total   |
+| -------------------------------------------- | ----- | ------------ | ------- |
+| Bing (HTML + screenshot)                     | 2     | 5            | ~10     |
+| Amazon (unique pages only, no premium proxy) | ~8    | 1            | ~8      |
+| Reddit (HTML + screenshot)                   | 2     | 5            | ~10     |
+| **Total**                                    |       |              | **~28** |
